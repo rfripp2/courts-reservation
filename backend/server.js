@@ -1,5 +1,6 @@
 const express = require("express");
-const routes = require("./src/api/routes/clubRoutes");
+const routes = require("./src/api/routes");
+
 const { PrismaClient } = require("@prisma/client");
 
 const app = express();

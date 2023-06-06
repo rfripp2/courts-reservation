@@ -1,20 +1,23 @@
-require("dotenv").config();
 const express = require("express");
-const app = express();
-const port = 3000;
+const routes = require("./src/routes");
 const { PrismaClient } = require("@prisma/client");
 
+const app = express();
 const prisma = new PrismaClient();
 
-app.listen(port, () => {
-	prisma
-		.$connect()
-		.then(() => {
-			console.log("Connected to the database");
-		})
-		.catch((error) => {
-			console.error("Error connecting to the database:", error);
-		});
+// Parse JSON request body
+app.use(express.json());
 
-	console.log(`Server is running on port ${port}`);
+// Attach Prisma client to the request object
+app.use((req, res, next) => {
+	req.prisma = prisma;
+	next();
+});
+
+// Register routes
+app.use("/routes", clubs);
+
+// Start the server
+app.listen(3000, () => {
+	console.log("Server is running on port 3000");
 });

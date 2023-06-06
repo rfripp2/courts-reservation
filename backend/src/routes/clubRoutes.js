@@ -1,7 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const { getAvailableCourts } = require("../utils/dateUtils");
-const prisma = require("../prisma/client");
+const { PrismaClient } = require("../../../../prisma/client");
 
 // GET /clubs/:clubId/available-courts endpoint
 router.get("/:clubId/available-courts", async (req, res) => {
